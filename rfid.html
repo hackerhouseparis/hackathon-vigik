@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h1 id="hackerhouse">HackerHouse</h1>
+<h1 id="hackaton-rfid-crack-write-clone">Hackaton RFID : Crack, Write, Clone !</h1>
+<p><strong>Pour attaquer une carte RFID de type Mifare, il faut détecter la carte, bypasser la protection du premier octect, puis donner l'ordre de lire ou d'écrire sur la puce, grâce à une librairie comme Libnfc et à des logiciels open source tels que Mfoc et Mfcuk.</strong></p>
+<p>Etiqueter ses affaires pour qu'un robot puisse automatiquement les ranger, s'insérer une puce sous la peau afin que le prochain contrôle d'identité se passe sans douleur ou épingler un tag (étiquette) dans la couture de ses vêtements pour enregistrer sa position dans l'espace… Pour le pire et le meilleur, la RFID débarque et devient le terrain de jeu des hackers ! La courbe d'apprentissage est d'ailleurs relativement courte. Mais attention : plusieurs standards coexistent, ce qui devrait occuper le cerveau des plus exigeants.</p>
+<p><strong>Couplage inductif</strong>. Un tag RFID, c'est un dispositif à deux tête (émetteur et récepteur) qui fonctionne par couplage inductif. Autrement dit par transfert d'énergie d'un milieu vers un autre, comme par exemple pour la transmission d'énergie sans fil. Ses dimensions sont très réduites (les plus petites atteignent des tailles records de 0.4 x 0.4 mm) et à portée variable. Plus précisément, les puces peuvent-être de courte portée (moins de 10cm), elles emettent alors à moins de 10 cm sur de très basses fréquences LF (de 125 kHz à 134,2 kHz). Ou de très longue portée (100 mètres et plus) sur des ultra-hautes fréquences (SHF) de 2.45 GHz. Entre les deux on trouve habituellement deux autres fréquences de fonctionnement : 13.56 MHz (HF) et 860 MHz - 960 MHz (UHF). Il existe par ailleurs des tags passifs et actifs, dotés d'une batterie légère ou d'une alimentation complète.</p>
+<p>En pratique, les caractéristiques et performances d'une étiquette dépendent de 3 facteurs. Premièrement, la distance entre l'émetteur et le récepteur. Deuxièmement, la vitesse à laquelle les données circulent (plus la fréquence est basse, plus la connexion est rapide). Troisièmement, l'environnement dans lequel la puce est installée : la RFID a horreur du métal, qui augmente la résonnance du signal et modifie la nature des ondes. Il faut souligner que la présence de plusieurs émetteurs concurrents ne gène pas l'émetteur qui traite tous les signaux séparément. Sauf en cas d'abus. Dans ce dernier cas apparait une « collision de tag ».</p>
+<p><strong>Carte Mifare</strong>. Parmi les catégories d'applications courantes, citons les cartes intelligentes. Principe : un morceau de platique est équipé d'une puce HF de 13.56 MHz capable d'émettre sur une distance de 5 à 30cm. Le modèle phare est basé sur du code propriétaire, c'est la carte Mifare fabriquée par NXP Semiconductors. Lequel se targue d'en avoir vendu des milliards ! Pas de chance, la « sécurité par l'obscurité » ne fonctionne pas, comme l'illustre cette carte qui, depuis 2009, est officiellement cassée. Votre carte de cantine, de parking, de cinéma... Celle de vos voisins… Non seulement Mifare est partout, mais il est de surcroit vulnérable. What else ?</p>
+<p><strong>Lecteur 13.56Mhz</strong> Dès lors, pour commencer à s'amuser, il suffit d'être équipé d'un lecteur compatible Mifare et de la carte adéquat. Le choix de l'<a href="http://www.acs.com.hk/en/driver/3/acr122u-usb-nfc-reader">ACR122u-A9</a> est pragmatique : économique (40€) et assez puissant (jusqu'à 5 cartes peuvent être lues simultanément sans collision), l'appareil peut lire de multiples autres formats de cartes. Tels que les cartes ISO 14443, de type A et B, ainsi que les cartes FeliCa et les étiquettes NFC. Il est PC/SC-compliant, ce qui le rend compatible avec les meilleurs systèmes d'exploitation du moment, à savoir Linux et Osx. Notez qu'il fonctionne aussi <s>malgré</s> avec Windows. Dans les faits, il existe plusieurs librairies capables de s'interfacer avec le lecteur. La librairie Libnfc est un choix parfaitement valide.</p>
+<pre><code>// Installation des logiciels requis sous Linux
+sudo apt-get install libnfc5 libnfc-bin libnfc-dev pcsc-tools pcscd</code></pre>
+<p><strong>Processus de hack</strong>. Une fois les pilotes installés il est temps de se lancer dans la découverte de la carte. Cela se fait en 3 étrapes. La première consiste à établir la liaison entre l'émetteur et le récepteur, c'est la phase de &quot;Binding&quot;. Pour cela, il faut en premier lancer le démon pcscd. Sur un OS qui implémente systemd, l'opération ressemble à ça:</p>
+<pre><code>// Démarrage du service pcscd
+sudo systemctl enable pcscd.service
+sudo systemctl start pcscd.service</code></pre>
+<p>Le voyant rouge s'allume. À partir de là, reste à poser la carte sur le lecteur puis attendre que la diode passe au vert (tandis que son bipper interne emet un son strident) indiquant que la détection a été réalisée. Pour le vérifier, lancez la commande nfc-list (qui proviene Libnfc).</p>
+<pre><code>// Lister les cartes disponibles
+nfc-list</code></pre>
+<p>Attention : sous Linux, il existe un conflit entre Libnfc et le module de gestion des drivers Modprobe. Pour le résoudre, il vous faudra peut-être désactiver les modules nfc et pn533.</p>
+<pre><code>// Désactivation de modules pour régler un conflit sous Linux
+sudo modprobe -r nfc &amp;&amp; sudo modprobe -r pn533</code></pre>
+<p><strong>Architecture</strong>. Une fois ce problème réglé, il est temps de passer aux choses sérieuses. Les deux étapes qui suivent la détection sont l'authentification et la lecture/écriture de données dans la zone &quot;data&quot; de la carte. Pourquoi s'authentifier? Répondre à cette question implique au préalable de comprendre <a href="https://drive.google.com/open?id=0B4Mh8PqP5oNcRzVkWnBDTlotSEU">comment la puce RFID est organisée</a>. Grosso modo, ce qu'il faut intégrer c'est que l'information est répartie sur 16 lignes (les &quot;secteurs&quot;, numérotés de 0 à 15) et que chaque ligne contient 4 octets de données, appelés &quot;blocs&quot; (soit 64 octets par secteur). Plus important, le premier bloc contient l'UID de la puce. Or c'est sur ce bloc que repose la sécurité de la carte à puce.</p>
+<p><strong>Attaques et outils</strong>. Pour vaincre cette sécurité, puis par exemple dupliquer des cartes à la volée, il faut se pencher sur une <a href="https://arxiv.org/pdf/0803.2285.pdf">publication liée à la vulnérabilité rattachée à ce bloc</a>. Il faut également se procurer quelques outils, à l'instar de mfoc (qui rend possible une &quot;nested attack&quot;) et mfcuk (qui se concentre sur la réalisation d'une &quot;dark side attack&quot;).</p>
+<p>
+
+<h1 id="outils">Outils</h1>
+<ul>
+<li>Libnfc</li>
+<li>Mfoc</li>
+<li>Mfcuk</li>
+<li>RFIDiot</li>
+<li>Ruby-nfc</li>
+<li>Cardpeek <a href="http://www.openpcd.org/Live_RFID_Hacking_System">Live_RFID_Hacking_System</a>
+
+</ul>
+</p>
+<h1 id="ideas">Ideas</h1>
+<pre><code>-&gt; Crack the UID -&gt; Clone the card
+-&gt; Develop a C program that can dump/write/read the card data
+-&gt; Wrap LibNFC with your own favorite langage</code></pre>
+</body>
+
