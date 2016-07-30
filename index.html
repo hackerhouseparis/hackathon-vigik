@@ -78,33 +78,35 @@
           </ul>
         </div>
         <div class="col-lg-6">
-          <h2>Lecteurs (5) et travaux</h2>
-          <div>
-            <p>
-              1. Un <a href="https://www.amazon.fr/KKMOON-ACR122U-contact-Lecteur-Graveur/dp/B00M2F21BM/ref=sr_1_1?ie=UTF8&qid=1469869348&sr=8-1&keywords=nfc+rfid">lecteur blanc, USB</a> compatible tout sauf osx.</p>
-            <p class="border-left">Il fonctionne, et on peut tenter le crack vigik avec <a href="https://github.com/nfc-tools/mfcuk">mfcuk</a> etc. Mais ca prend entre 30 minutes et 4 heures.</p>
+          <h2>Lecteurs (5)</h2>
+          <p>
+            1. Un <a href="https://www.amazon.fr/KKMOON-ACR122U-contact-Lecteur-Graveur/dp/B00M2F21BM/ref=sr_1_1?ie=UTF8&qid=1469869348&sr=8-1&keywords=nfc+rfid">lecteur blanc, USB</a> compatible tout sauf osx.</p>
+          <p class="border-left">Il fonctionne, et on peut tenter le crack vigik avec <a href="https://github.com/nfc-tools/mfcuk">mfcuk</a> etc. Mais ca prend entre 30 minutes et 4 heures.</p>
 
-            <p>2. Un lecteur <a
-                href="https://cdn-shop.adafruit.com/datasheets/pn532ds.pdf">PN532</a>,
-              communication <a
-                href="https://fr.wikipedia.org/wiki/UART">UART</a> et ou <a
-                href="https://fr.wikipedia.org/wiki/I2C">I2C</a> et ou <a
-                href="https://fr.wikipedia.org/wiki/Serial_Peripheral_Interface<Paste>">SPI</a>
-            </p>
-            <p class="border-left">Fonctionne sans arduino via un FTDI (uart vers usb)</p>
-            <p class="border-left">Utilisation avec la <a href="http://nfc-tools.org/index.php?title=Libnfc">libnfc</a> et nfc-list, ou pcsc_scan, ou autre.</p>
-            <p class="border-left"><b>Actuellement</b> : Ne fonctionne pas avec nfc-list. Piste: configure libnfc avec pn532</p>
-            <p class="border-left"><b>Actuellement</b> : Semble fonctionner avec node.js (cf. Antoine)</p>
+          <p>2. Un lecteur <a
+              href="https://cdn-shop.adafruit.com/datasheets/pn532ds.pdf">PN532</a>,
+            communication <a
+              href="https://fr.wikipedia.org/wiki/UART">UART</a> et ou <a
+              href="https://fr.wikipedia.org/wiki/I2C">I2C</a> et ou <a
+              href="https://fr.wikipedia.org/wiki/Serial_Peripheral_Interface<Paste>">SPI</a>
+          </p>
+          <p class="border-left">Fonctionne sans arduino via un FTDI (uart vers usb)</p>
+          <p class="border-left">Utilisation avec la <a href="http://nfc-tools.org/index.php?title=Libnfc">libnfc</a> et nfc-list, ou pcsc_scan, ou autre.</p>
+          <p class="border-left"><b>Actuellement</b> : Ne fonctionne pas avec nfc-list. Piste: configure libnfc avec pn532</p>
+          <p class="border-left"><b>Actuellement</b> : Semble fonctionner avec node.js (cf. Antoine)</p>
 
-            <p>3.Deux lecteurs RC522, SPI, via arduino</p>
-            <p class="border-left">En cours (cf. Guillaume et Mickael). Lib utilisée dans liste infos. Tutorial <a href="http://tiptopboards.free.fr/arduino_forum/viewtopic.php?f=2&t=16">ici</a></p>
+          <p>3.Deux lecteurs RC522, SPI, via arduino</p>
+          <p class="border-left">En cours (cf. Guillaume et Mickael). Lib utilisée dans liste infos. Tutorial <a href="http://tiptopboards.free.fr/arduino_forum/viewtopic.php?f=2&t=16">ici</a></p>
 
-            <p>4. Un lecteur nfc sur trackpad laptop</p>
+          <p>4. Un lecteur nfc sur trackpad laptop</p>
 
-            <p class="border-left">Smart card reader". Simon paie la pizza a celui qui le fait fonctionner sous linux</p>
-            <p>5. Des NFC sur smartphone</p>
-            <p class="border-left">A faire ! -- Potentiellement non compatible mifare (Nexus 5, Galaxy S4 ne scanne même pas).</p>
-          </div>
+          <p class="border-left">Smart card reader". Simon paie la pizza a celui qui le fait fonctionner sous linux</p>
+          <p>5. Des NFC sur smartphone</p>
+          <p class="border-left">A faire ! -- Potentiellement non compatible mifare (Nexus 5, Galaxy S4 ne scanne même pas).</p>
+          <h2>Binding à libnfc dans d'autres langages.</h2>
+          <p><b>Existing: </b><a href="https://github.com/fuzxxl/nfc">Go</a>, <a href="https://github.com/camme/node-nfc">Node (JS)</a><a href="https://github.com/chariotsolutions/phonegap-nfc">Cordova Access NFC</a></p>
+          <p><b>For inspiration: </b>OCaml, Scala, Java, Python, Ruby</p>
+          <p><b>In progress: </b></p>
         </div>
       </div>
     </div>
