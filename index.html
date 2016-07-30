@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="main.css" type="text/css" />
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -21,13 +22,13 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
     </script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/jquery.countdown.css"> 
-	<script type="text/javascript" src="js/jquery.plugin.js"></script> 
-	<script type="text/javascript" src="js/jquery.countdown.js"></script>
-	<script type="text/javascript">
-	var newYear = new Date(newYear.getFullYear() + 1, 1 - 1, 1); 
-	$('#x').countdown({until: newYear}); 
-	</script> 
+    <link rel="stylesheet" type="text/css" href="css/jquery.countdown.css">
+    <script type="text/javascript" src="js/jquery.plugin.js"></script>
+    <script type="text/javascript" src="js/jquery.countdown.js"></script>
+    <script type="text/javascript">
+    var newYear = new Date(newYear.getFullYear() + 1, 1 - 1, 1);
+    $('#x').countdown({until: newYear});
+    </script>
   </head>
   <script type="text/javascript">
     setTimeout(function(){
@@ -66,48 +67,42 @@
             <li>Arnaud </li>
           </ul>
 
-          <!--<h2>Projets en cours (Ajoutez vos projets ici, travaillez en groupe !)</h2>
-
-          <p>Pour que les hacks se passent bien et qu'on puisse produire quelque chose de cool, il est intéressant de collaborer. Formez des équipes. Partagez.</p>
-          <p>Créez un fichier HTML en rapport avec votre projet et ajoutez un lien vers celui-ci dans la liste ci-dessous.</p>
-          <ul>
-            <li>Projet 1</li>
-            <li>Projet 2</li>
-            <li>Projet 3</li>
-            <li>Projet 4</li>
-          </ul>-->
           <h2>Matériel disponible:</h2>
           <p>Si vous avez apporté du matériel, faites attention d'avoir un signe reconnaissable dessus<a href="matos.htm"></a></p>
           <h2>Diverses informations. Partagez !!</h2>
           <ul>
-            <li>
-              <a href="rfid.html">(Draft) Crack, Write, Clone!</a>
-            </li>
+            <li><a href="rfid.html">(Draft) Crack, Write, Clone!</a></li>
             <li><a href="https://github.com/techniq/node-pn532">Driver for the PN532 NFC Chip</a></li>
             <li><a href="http://idehack.com/blog/utiliser-un-module-rfid-rc522-avec-larduino/">Montage Arduino + rc522</a> et <a href="http://les-electroniciens.com/videos/arduino-ep14-comment-utiliser-le-module-rfid-rc522">Tuto vidéo</a></li>
           </ul>
         </div>
         <div class="col-lg-6">
-          <h2>Lecteurs et travaux</h2>
-          <div style="white-space: pre;">
-            Nous avons 5 lecteurs :
-            <ul>
-              <li>Un <a
-                  href="https://www.amazon.fr/KKMOON-ACR122U-contact-Lecteur-Graveur/dp/B00M2F21BM/ref=sr_1_1?ie=UTF8&qid=1469869348&sr=8-1&keywords=nfc+rfid">lecteur
-                  blanc, USB</a> compatible tout sauf osx</li>
-              Il fonctionne, et on peut tenter le crack vigik avec mfcuk etc. Mais ca prend entre 30 minutes et 4 heures.
-              <li>Un lecteur <a href="https://cdn-shop.adafruit.com/datasheets/pn532ds.pdf">PN532</a>, communication <a href="https://fr.wikipedia.org/wiki/UART">UART</a> et ou <a href="https://fr.wikipedia.org/wiki/I2C">I2C</a> et ou <a href="https://fr.wikipedia.org/wiki/Serial_Peripheral_Interface<Paste>">SPI</a></li>
-              Fonctionne sans arudino via un FTDI (uart vers usb)
-              Utilisation avec la libnfc et nfc-list, ou pcsc_scan, ou autre.
-              Actuellement : Nefonctionne pas avec nfc-list. Piste: configure libnfc avec pn532
-              Actuellement : Semble fonctionner avec node.js (cf. Antoine)
-              <li>Deux lecteurs RC522, SPI, via arduino</li>
-              En cours (cf. Guillaume et Mickael)
-              <li>Un lecteur nfc sur trackpad laptop</li>
-              "Smart card reader". Simon paie la pizza a celui qui le fait fonctionner sous linux
-              <li>Des NFC sur smartphone</li>
-              A faire ! -- Potentiellement non compatible mifare (Nexus 5, Galaxy S4 ne scan même pas).
-            </ul>
+          <h2>Lecteurs (5) et travaux</h2>
+          <div>
+            <p>
+              1. Un <a href="https://www.amazon.fr/KKMOON-ACR122U-contact-Lecteur-Graveur/dp/B00M2F21BM/ref=sr_1_1?ie=UTF8&qid=1469869348&sr=8-1&keywords=nfc+rfid">lecteur blanc, USB</a> compatible tout sauf osx.</p>
+            <p class="border-left">Il fonctionne, et on peut tenter le crack vigik avec <a href="https://github.com/nfc-tools/mfcuk">mfcuk</a> etc. Mais ca prend entre 30 minutes et 4 heures.</p>
+
+            <p>2. Un lecteur <a
+                href="https://cdn-shop.adafruit.com/datasheets/pn532ds.pdf">PN532</a>,
+              communication <a
+                href="https://fr.wikipedia.org/wiki/UART">UART</a> et ou <a
+                href="https://fr.wikipedia.org/wiki/I2C">I2C</a> et ou <a
+                href="https://fr.wikipedia.org/wiki/Serial_Peripheral_Interface<Paste>">SPI</a>
+            </p>
+            <p class="border-left">Fonctionne sans arduino via un FTDI (uart vers usb)</p>
+            <p class="border-left">Utilisation avec la libnfc et nfc-list, ou pcsc_scan, ou autre.</p>
+            <p class="border-left"><b>Actuellement</b> : Nefonctionne pas avec nfc-list. Piste: configure libnfc avec pn532</p>
+            <p class="border-left"><b>Actuellement</b> : Semble fonctionner avec node.js (cf. Antoine)</p>
+
+            <p>3.Deux lecteurs RC522, SPI, via arduino</p>
+            <p class="border-left">En cours (cf. Guillaume et Mickael)</p>
+
+            <p>4. Un lecteur nfc sur trackpad laptop</p>
+
+            <p class="border-left">Smart card reader". Simon paie la pizza a celui qui le fait fonctionner sous linux</p>
+            <p>5. Des NFC sur smartphone</p>
+            <p class="border-left">A faire ! -- Potentiellement non compatible mifare (Nexus 5, Galaxy S4 ne scan même pas).</p>
           </div>
         </div>
       </div>
