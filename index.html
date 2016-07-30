@@ -21,6 +21,13 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
     </script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/jquery.countdown.css"> 
+	<script type="text/javascript" src="js/jquery.plugin.js"></script> 
+	<script type="text/javascript" src="js/jquery.countdown.js"></script>
+	<script type="text/javascript">
+	var newYear = new Date(newYear.getFullYear() + 1, 1 - 1, 1); 
+	$('#x').countdown({until: newYear}); 
+	</script> 
   </head>
   <script type="text/javascript">
     setTimeout(function(){
@@ -34,7 +41,7 @@
           <h1>Bienvenue au premier hackathon de la HackerHouse Paris sur les pass VIGIK.</h1>
 
           <div class="text-center"><img style="width:10%;" src="http://orig07.deviantart.net/41a2/f/2010/189/d/f/trollface_by_deniskapwnz.png"></div>
-
+<div id="x"></div>
           <p>
             Vous pouvez modifier ce dépot comme vous le voulez. Pour avoir les droits de modifications, il suffit de demander à Danny en envoyant votre login GitHub.
           </p>
